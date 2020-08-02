@@ -49,8 +49,9 @@ class Main extends Component {
             {
                 this.setState({ pageNumber: pageNumber, lastIndex: this.state.lastIndex+this.state.pageCount});
             }
+            window.scrollBy(0, -100000);
         }
-        this.forceUpdate();
+        // this.forceUpdate();
     }
 
     prevHandler = () => {
@@ -62,17 +63,18 @@ class Main extends Component {
             {
                 this.setState({ pageNumber: pageNumber, lastIndex: this.state.lastIndex-this.state.pageCount});
             }
-            
+            window.scrollBy(0, -100000);
         }
-        this.forceUpdate();
+        // this.forceUpdate();
+        
     }
 
     render() {
         let data = this.getData();
         return (
-            <React.Fragment>
-                <header>
-                    <Paper elevation={12}><img src="https://miro.medium.com/max/600/1*jQW88p6H4G1Djbnx4wiuwQ.jpeg" width="99%" padding="1%"></img></Paper>
+            <React.Fragment >
+                <header style={{width:"50%", textAlign:'center', marginLeft:"25%", marginTop: "2%",marginBottom: "2%"}}>
+                    <Paper elevation={12} ><img src="https://miro.medium.com/max/600/1*jQW88p6H4G1Djbnx4wiuwQ.jpeg"  padding="1%"></img></Paper>
                 </header>
                 <main>
                     {data}
@@ -82,7 +84,7 @@ class Main extends Component {
                     {this.state.pageNumber}
                     <Paper onClick={this.nextHandler} style={{ display: "inline-block", width: "10%", margin: "0.5rem", padding: "0.5rem", background: 'linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb)', marginTop: "2%" }}>Next</Paper>
 
-                    <Paper elevation={12} style={{ background: 'linear-gradient(to right, #00b4db, #0083b0)', marginTop: "5%" }}>Designed by Shahid Dhariwala</Paper>
+                    <Paper elevation={12} style={{ background: 'linear-gradient(to right, #00b4db, #0083b0)', marginTop: "3%" }}>Designed by Shahid Dhariwala</Paper>
                 </footer>
             </React.Fragment >
         );
