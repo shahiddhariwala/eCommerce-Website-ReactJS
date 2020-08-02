@@ -5,10 +5,11 @@ import { Paper } from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
+
 const items = (props) => {
     return (
 
-        <Paper elevation={12} style={{ display: 'inline-block', margin: '1rem' }}>
+        <Paper elevation={12} style={{ display: 'inline-block', margin: '1rem', cursor: "default" }}>
             <Card border="secondary" style={{ width: '12rem', margin: '10px' }} >
                 <Paper style={{ padding: '10px' }} elevation={3}>
                     <Card.Img variant="top" src="https://staticimg.titan.co.in/Tanishq/Catalog/502998SBHAAA04_2.jpg" style={{ width: '180px' }} />
@@ -25,7 +26,7 @@ const items = (props) => {
                             </div>
                         </Paper>
                     </Card.Text>
-                    <Paper elevation={5} style={{ background: 'linear-gradient(to right, #2193b0, #6dd5ed)', color: 'white', width: "40%", display: "inline-block", padding: "2px" }}>Buy Now</Paper>
+                    <Paper onClick={props.clicked}elevation={5} style={{ background: 'linear-gradient(to right, #2193b0, #6dd5ed)', color: 'white', width: "40%", display: "inline-block", padding: "2px", cursor: "pointer" }}>Buy Now</Paper>
                 </Card.Body>
             </Card>
         </Paper>
