@@ -8,8 +8,10 @@ class Main extends Component {
         this.state = {
             data: [],
             pageNumber: 1,
-            pageCount: 30,
+            pageCount: 21,
             lastIndex: 2,
+            maxPages: 0,
+            newData:[],
         }
     }
     componentDidMount() {
@@ -19,31 +21,50 @@ class Main extends Component {
             complete: (results) => {
                 console.log(results);
                 this.setState({ data: results.data });
+                let pages = Math.floor(results.data.length/this.state.pageCount);
+                this.setState({maxPages:pages});
             }
-        })
+        });
     }
-    getData = ()=>
-    {
+    getData = () => {
         let count = this.state.lastIndex;
-        let data = this.state.data.map(item => {
-            if (count < this.state.pageCount) {
-                count++;
+        let data = this.state.data.map((item,index) => {
+            if (index > this.state.lastIndex && index < (this.state.pageNumber * this.state.pageCount)) {
                 return (
-                    <Card key={item[0]} brand={item[48]} price={item[46]} category={item[36].split(' ')[0]} collection={item[8]}></Card>
+                    <Card key={item[0]} brand={item[48]} price={item[46]} category={item[36]} collection={item[8]}></Card>
                 )
+            }
+            else{
+                return null;
             }
         }
         )
         return data;
     }
-    nextHandler = () =>
-    {
-
+    nextHandler = () => {
+        let pageNumber = this.state.pageNumber;
+        if (pageNumber != this.state.maxPages) {
+            pageNumber += 1;
+            if ((this.state.lastIndex-this.state.pageCount) != this.state.data.length)
+            {
+                this.setState({ pageNumber: pageNumber, lastIndex: this.state.lastIndex+this.state.pageCount});
+            }
+        }
+        this.forceUpdate();
     }
 
-    prevHandler = () =>
-    {
-        
+    prevHandler = () => {
+        let pageNumber = this.state.pageNumber;
+        if (pageNumber > 1) {
+            pageNumber -= 1;
+            this.setState({ pageNumber: pageNumber });
+            if ((this.state.lastIndex-this.state.pageCount) > 0)
+            {
+                this.setState({ pageNumber: pageNumber, lastIndex: this.state.lastIndex-this.state.pageCount});
+            }
+            
+        }
+        this.forceUpdate();
     }
 
     render() {
@@ -57,11 +78,15 @@ class Main extends Component {
                     {data}
                 </main>
                 <footer>
-                    <Paper onClick={this.nextHandler} style={{ display: "inline-block", width: "10%", margin: "0.5rem", padding: "0.5rem", background: 'linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb)',marginTop:"2%" }}>Next</Paper>
-                    <Paper onClick={this.prevHandler} style={{ display: "inline-block", width: "10%", margin: "0.5rem", padding: "0.5rem", background: 'linear-gradient(to right, #a6ffcb, #12d8fa, #1fa2ff)',marginTop:"2%" }}>Prev</Paper>
+                    <Paper onClick={this.prevHandler} style={{ display: "inline-block", width: "10%", margin: "0.5rem", padding: "0.5rem", background: 'linear-gradient(to right, #a6ffcb, #12d8fa, #1fa2ff)', marginTop: "2%" }}>Prev</Paper>
+                    {this.state.pageNumber}
+                    <Paper onClick={this.nextHandler} style={{ display: "inline-block", width: "10%", margin: "0.5rem", padding: "0.5rem", background: 'linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb)', marginTop: "2%" }}>Next</Paper>
+
                     <Paper elevation={12} style={{ background: 'linear-gradient(to right, #00b4db, #0083b0)', marginTop: "5%" }}>Designed by Shahid Dhariwala</Paper>
                 </footer>
             </React.Fragment >
         );
     }
 }
+
+export default Main;
