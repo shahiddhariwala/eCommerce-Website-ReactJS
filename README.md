@@ -1,3 +1,5 @@
+# eCommerce Website : Jewellery Shop
+![Web App SS](https://github.com/shahiddhariwala/eCommerce-Website-ReactJS/blob/master/eCommerce-Website.png)
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
